@@ -1,0 +1,35 @@
+class GestorTareas:
+    def __init__(self):
+        self.tareas = []
+
+    def agregar_tarea(self, tarea):
+        self.tareas.append(tarea)
+        print(f"Tarea '{tarea}' agregada.")
+
+    def mostrar_tareas(self):
+        if not self.tareas:
+            print("La lista está vacía.")
+        else:
+            print("\n--- Tus tareas ---")
+            for i, tarea in enumerate(self.tareas, 1):
+                print(f"{i}. {tarea}")
+
+    def eliminar_tarea(self, indice):
+        try:
+            eliminada = self.tareas.pop(indice - 1)
+            print(f"Tarea '{eliminada}' eliminada.")
+        except IndexError:
+            print("Error: El número de tarea no existe.")
+
+# --- Uso del programa ---
+mi_lista = GestorTareas()
+
+mi_lista.agregar_tarea("Comprar leche")
+mi_lista.agregar_tarea("Estudiar Python")
+mi_lista.agregar_tarea("Hacer ejercicio")
+
+mi_lista.mostrar_tareas()
+
+mi_lista.eliminar_tarea(2)  # Elimina "Estudiar Python"
+
+mi_lista.mostrar_tareas()
