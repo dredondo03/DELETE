@@ -1,0 +1,35 @@
+import pytesseract
+from PIL import Image
+import os
+
+def imagen_a_texto(ruta_imagen):
+    try:
+        # Cargamos la imagen
+        imagen = Image.open(ruta_imagen)
+        
+        # Extraemos el texto (puedes cambiar 'spa' por 'eng' si es inglés)
+        texto = pytesseract.image_to_string(imagen, lang='spa')
+        
+        return texto
+    except Exception as e:
+        return f"Error: {e}"
+
+if __name__ == "__main__":
+    archivo = input("Arrastra la imagen aquí o escribe su ruta: ").strip('"')
+    
+    if os.path.exists(archivo):
+        print("\nProcesando... ⏳")
+        resultado = imagen_a_texto(archivo)
+        
+        print("\n--- Texto Encontrado ---")
+        print(resultado)
+        print("------------------------")
+        
+        # Opcional: Guardarlo en un archivo .txt
+        guardar = input("¿Quieres guardar el texto en un .txt? (s/n): ")
+        if guardar.lower() == 's':
+            with open("texto_extraido.txt", "w", encoding="utf-8") as f:
+                f.write(resultado)
+            print("Guardado como 'texto_extraido.txt'")
+    else:
+        print("No se encontró el archivo.")
